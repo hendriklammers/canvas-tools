@@ -1,15 +1,3 @@
-/*
- * Canvas Tools - mathUtils
- * Javascript utility toolkit for working with the HTML Canvas
- * Version 0.0.1
- *
- * Copyright (c) 2013 Hendrik Lammers
- * http://www.hendriklammers.com
- *
- * Licensed under the MIT license.
- * http://opensource.org/licenses/MIT
- */
-
 /**
  * Various math related helper methods
  */
