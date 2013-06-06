@@ -11,12 +11,12 @@
  */
 
 /**
- * Some useful math functions
+ * Various math related helper methods
  */
-(function() {
+var MATH_UTILS = (function() {
     'use strict';
     
-    var mathUtils = {
+    var utils = {
         //TODO: Add shortestRotation method
         
         /**
@@ -100,6 +100,6 @@
         }
     };
     
-    window.mathUtils = mathUtils;
+    return utils;
     
 }());
