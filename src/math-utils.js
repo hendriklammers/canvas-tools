@@ -5,7 +5,17 @@ var MATH_UTILS = (function() {
     'use strict';
     
     var utils = {
-        //TODO: Add shortestRotation method
+        /**
+         * Rounds a number with given amount of digits behind comma
+         * 
+         * @param {number} value Number to round
+         * @param {number} precision Number of digits wanted behind the comma
+         */
+        round: function(value, precision) {
+            var factor = Math.pow(10, precision);
+            
+            return Math.round(value * factor) / factor;
+        },
         
         /**
          * Test if a number is positive or negative.
@@ -32,6 +42,20 @@ var MATH_UTILS = (function() {
                 angle = Math.atan2(dy, dx) * 180 / Math.PI;
                 
             return angle;
+        },
+        
+        /**
+         * Calculate the shortest angle towards a target angle
+         * Works with angles from 0 to 360
+         */
+        shortestRotation: function(startAngle, targetAngle) {
+            var angle = (targetAngle - startAngle + 360) % 360;
+            
+            if (angle > 180) {
+                return -(360 - angle);
+            } else {
+                return angle;
+            }
         },
         
         /**

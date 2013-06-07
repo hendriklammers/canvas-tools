@@ -1,4 +1,3 @@
-/*global mu */
 describe('MATH_UTILS object', function() {
     'use strict';
     
@@ -7,6 +6,14 @@ describe('MATH_UTILS object', function() {
 
     it('should be available globally', function() {
         expect(mu).toBeDefined();
+    });
+    
+    describe('round method', function() {
+        it('rounds a number to provided number of digits behind comma', function() {
+            expect(mu.round(3.58322845, 2)).toEqual(3.58);
+            expect(mu.round(Math.PI, 10)).toEqual(3.1415926536);
+            expect(mu.round(-542.67, 1)).toEqual(-542.7);
+        });
     });
     
     describe('sign method', function() {
@@ -44,6 +51,15 @@ describe('MATH_UTILS object', function() {
             expect(mu.getAngle(10, 10, 10, 0)).toEqual(-90);
             expect(mu.getAngle(10, 10, 0, 10)).toEqual(180);
             expect(mu.getAngle(10, 10, 10, 20)).toEqual(90);
+        });
+    });
+    
+    describe('shortestRotation method', function() {
+        it('returns the shortest rotation to get to targetAngle', function() {
+            expect(mu.shortestRotation(90, 125)).toEqual(35);
+            expect(mu.shortestRotation(260, 60)).toEqual(160);
+            expect(mu.shortestRotation(0, 350)).toEqual(-10);
+            expect(mu.shortestRotation(310, 132)).toEqual(-178);
         });
     });
     
