@@ -7,6 +7,12 @@ describe('COLOR_UTILS helper methods', function() {
         expect(cu).toBeDefined();
     });
     
+    describe('randomHex', function() {
+        it('returns a valid hex color string', function() {
+            expect(cu.randomHex()).toMatch(/^#[a-f0-9]{6}$/i);
+        });
+    });
+    
     describe('toRGB', function() {
         it('converts a hex string to an RGB string', function() {
             expect(cu.toRGB('#000000')).toEqual('rgb(0, 0, 0)');

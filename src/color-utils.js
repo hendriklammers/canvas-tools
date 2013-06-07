@@ -6,6 +6,14 @@ window.COLOR_UTILS = (function() {
     
     var utils = {
         /**
+         * Returns a random hex color
+         */
+        randomHex: function() {
+            // Adding zeros to make sure lenth is always 6
+            return '#' + ('000000' + Math.floor(Math.random() * 16777215).toString(16)).slice(-6);
+        },
+        
+        /**
          * Convert a hex color (#aabbcc, #abc) into rgb object
          *
          * @param {string} color hex color value short or long
@@ -55,9 +63,9 @@ window.COLOR_UTILS = (function() {
         /**
          * Convert a RGB color into a HSL color
          *
-         * @param {number} r Red value 0-255
-         * @param {number} g Green value 0-255
-         * @param {number} b Blue value 0-255
+         * @param {number} red Red value 0-255
+         * @param {number} green Green value 0-255
+         * @param {number} blue Blue value 0-255
          * @param {boolean} str String output, setting it to false will return an object
          * @returns {string} HSL color 'hsl(360, 100%, 50%)'
          */
