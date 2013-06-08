@@ -7,6 +7,26 @@ describe('COLOR_UTILS helper methods', function() {
         expect(cu).toBeDefined();
     });
     
+    describe('invertColor', function() {
+        it('takes a rgb color and returns the inverted rgb string', function() {
+            expect(cu.invertColor(200, 100, 75)).toEqual('rgb(55, 155, 180)');
+        });
+    });
+    
+    describe('toGrayscale', function() {
+        it('converts a rgb color to grayscale', function() {
+            expect(cu.toGrayscale(255, 0, 0)).toEqual('rgb(54, 54, 54)');
+            expect(cu.toGrayscale(255, 0, 0, 'lightness')).toEqual('rgb(128, 128, 128)');
+            expect(cu.toGrayscale(200, 100, 30, 'average')).toEqual('rgb(110, 110, 110)');
+        });
+        
+        it('should throw error when invalid method is passed as argument', function() {
+            expect(function() {
+                cu.toGrayscale(100, 255, 0, 'foobar');
+            }).toThrow(new Error('Not a valid grayscale method'));
+        });
+    });
+    
     describe('hslToString', function() {
         it('returns a valid hsl string with h, s, l argument values', function() {
             expect(cu.hslToString(220, 100, 50)).toEqual('hsl(220, 100%, 50%)');

@@ -6,6 +6,43 @@ window.COLOR_UTILS = (function() {
     
     var utils = {
         /**
+         * Inverts a rgb color
+         * 
+         * @returns {string} Inverted rgb color: 'rgb(255, 100, 50)'
+         */
+        invertColor: function(r, g, b) {
+            return 'rgb(' + (255 - r) + ', ' + (255 - g) + ', ' + (255 - b) + ')';
+        },
+        
+        /**
+         * Converts a rgb color to grayscale
+         * 
+         * @param {string} method Optional grayscale algorithm: 'average', 'lightness' or 'luminosity' (Default)
+         */
+        toGrayscale: function(r, g, b, method) {
+            var grey;
+            
+            switch(method || 'luminosity') {
+                case 'luminosity':
+                    grey = r * 0.21 + g * 0.72 + b * 0.07;
+                    break;
+                case 'average':
+                    grey = (r + g + b) / 3;
+                    break;
+                case 'lightness':
+                    grey = (Math.max(r, g, b) + Math.min(r, g, b)) / 2;
+                    break;
+                default:
+                    throw new Error('Not a valid grayscale method');
+            }
+            
+            grey = Math.round(grey);
+            
+            //TODO: Different return type?
+            return 'rgb(' + grey + ', ' + grey + ', ' + grey + ')';
+        },
+        
+        /**
          * Takes hsl properties and converts them to a valid hsl(a) string
          * Alpha is optional
          */
