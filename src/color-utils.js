@@ -6,6 +6,84 @@ window.COLOR_UTILS = (function() {
     
     var utils = {
         /**
+         * Takes hsl properties and converts them to a valid hsl(a) string
+         * Alpha is optional
+         */
+        hslToString: function(h, s, l, a) {
+            if (typeof a === 'number' && a >= 0 && a <= 1) {
+                return 'hsla(' + h + ', ' + s + '%, ' + l + '%, ' + a + ')';
+            } else {
+                return 'hsl(' + h + ', ' + s + '%, ' + l + '%)';
+            }
+        },
+        
+        /**
+         * Takes a hsl(a) string and parses it into an object with h, s, l, a properties
+         */
+        hslToObject: function(color) {
+            var hsl = /^hsl\(\s*([0-9]{1,3})\s*,\s*([0-9]{1,3})\s*%\s*,\s*([0-9]{1,3})\s*%\s*\)$/,
+                hsla = /^hsla\(\s*([0-9]{1,3})\s*,\s*([0-9]{1,3})\s*%\s*,\s*([0-9]{1,3})\s*%\s*,\s*([0-9\.]+)\s*\)$/,
+                match;
+                
+            if ((match = hsl.exec(color))) {
+                return {
+                    h: parseInt(match[1], 10),
+                    s: parseInt(match[2], 10),
+                    l: parseInt(match[3], 10),
+                    a: 1
+                };
+            } else if ((match = hsla.exec(color))) {
+                return {
+                    h: parseInt(match[1], 10),
+                    s: parseInt(match[2], 10),
+                    l: parseInt(match[3], 10),
+                    a: parseFloat(match[4])
+                };
+            } else {
+                throw new Error('Not a valid hsl(a) string');
+            }
+        },
+        
+        /**
+         * Takes rgba properties and converts them to a valid rgb(a) string
+         * Alpha is optional
+         */
+        rgbToString: function(r, g, b, a) {
+            if (typeof a === 'number' && a >= 0 && a <= 1) {
+                return 'rgba(' + r + ', ' + g + ', ' + b + ', ' + a + ')';
+            } else {
+                return 'rgb(' + r + ', ' + g + ', ' + b + ')';
+            }
+        },
+        
+        /**
+         * Takes a rgb(a) string and parses it into an object with r, g, b, a properties
+         */
+        rgbToObject: function(color) {
+            var rgb = /^rgb\(\s*([0-9]{1,3})\s*,\s*([0-9]{1,3})\s*,\s*([0-9]{1,3})\s*\)$/,
+                rgba = /^rgba\(\s*([0-9]{1,3})\s*,\s*([0-9]{1,3})\s*,\s*([0-9]{1,3})\s*,\s*([0-9\.]+)\s*\)$/,
+                match;
+                
+            if ((match = rgb.exec(color))) {
+                return {
+                    r: parseInt(match[1], 10),
+                    g: parseInt(match[2], 10),
+                    b: parseInt(match[3], 10),
+                    a: 1
+                };
+            } else if ((match = rgba.exec(color))) {
+                return {
+                    r: parseInt(match[1], 10),
+                    g: parseInt(match[2], 10),
+                    b: parseInt(match[3], 10),
+                    a: parseFloat(match[4])
+                };
+            } else {
+                throw new Error('Not a valid rgb(a) string');
+            }
+        },
+        
+        /**
          * Returns a random hex color
          */
         randomHex: function() {
@@ -25,20 +103,22 @@ window.COLOR_UTILS = (function() {
                 three = /^#([0-9a-f])([0-9a-f])([0-9a-f])$/i,         // Match #abc
                 useString = typeof str === 'undefined' ? true : str,
                 parsed,
-                result;
+                match;
             
-            if ((result = six.exec(color))) {
+            if ((match = six.exec(color))) {
                 parsed = {
-                    r: parseInt(result[1], 16),
-                    g: parseInt(result[2], 16),
-                    b: parseInt(result[3], 16)
+                    r: parseInt(match[1], 16),
+                    g: parseInt(match[2], 16),
+                    b: parseInt(match[3], 16)
                 };
-            } else if ((result = three.exec(color))) {
+            } else if ((match = three.exec(color))) {
                 parsed = {
-                    r: parseInt(result[1], 16) * 17,
-                    g: parseInt(result[2], 16) * 17,
-                    b: parseInt(result[3], 16) * 17
+                    r: parseInt(match[1], 16) * 17,
+                    g: parseInt(match[2], 16) * 17,
+                    b: parseInt(match[3], 16) * 17
                 };
+            } else {
+                throw new Error('Not a valid hex color');
             }
             
             if (useString) {
@@ -56,8 +136,8 @@ window.COLOR_UTILS = (function() {
          * @param {number} b Blue value 0-255
          * @returns {string} hex color '#aabbcc'
          */
-        toHex: function(red, green, blue) {
-            return '#' + ((1 << 24) + (red << 16) + (green << 8) + blue).toString(16).slice(1);
+        toHex: function(r, g, b) {
+            return '#' + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
         },
         
         /**
@@ -69,11 +149,12 @@ window.COLOR_UTILS = (function() {
          * @param {boolean} str String output, setting it to false will return an object
          * @returns {string} HSL color 'hsl(360, 100%, 50%)'
          */
-        toHSL: function(red, green, blue, str) {
-            var r = red / 255,
-                g = green / 255,
-                b = blue / 255,
-                max = Math.max(r, g, b),
+        toHSL: function(r, g, b, str) {
+            r = r / 255;
+            g = g / 255;
+            b = b / 255;
+            
+            var max = Math.max(r, g, b),
                 min = Math.min(r, g, b),
                 delta = max - min,
                 useString = typeof str === 'undefined' ? true : str,

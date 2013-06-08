@@ -7,6 +7,59 @@ describe('COLOR_UTILS helper methods', function() {
         expect(cu).toBeDefined();
     });
     
+    describe('hslToString', function() {
+        it('returns a valid hsl string with h, s, l argument values', function() {
+            expect(cu.hslToString(220, 100, 50)).toEqual('hsl(220, 100%, 50%)');
+        });
+        
+        it('returns a valid hsla string with h, s, l, a argument values', function() {
+            expect(cu.hslToString(360, 75, 20, 0.08)).toEqual('hsla(360, 75%, 20%, 0.08)');
+        });
+    });
+    
+    describe('hslToObject', function() {
+        it('returns an object with hsla properties of the given hsl color', function() {
+            expect(cu.hslToObject('hsl(120, 100%, 50%)')).toEqual({h: 120, s: 100, l: 50, a: 1});
+        });
+        
+        it('returns an object with hsla properties of the given hsla color', function() {
+            expect(cu.hslToObject('hsla(240, 75%, 80%, 0.84)')).toEqual({h: 240, s: 75, l: 80, a: 0.84});
+        });
+        
+        it('should throw error when argument is not a valid hsl(a) string', function() {
+            expect(function() {
+                cu.hslToObject('hsl(34%, 100,)');
+            }).toThrow(new Error('Not a valid hsl(a) string'));
+        });
+    });
+    
+    describe('rgbToString', function() {
+        it('returns a valid rgb string with r, g, b values from arguments', function() {
+            expect(cu.rgbToString(220, 100, 73)).toEqual('rgb(220, 100, 73)');
+        });
+        
+        it('returns a valid rgba string with r, g, b, a values from arguments', function() {
+            expect(cu.rgbToString(34, 78, 255, 0.75)).toEqual('rgba(34, 78, 255, 0.75)');
+        });
+    });
+    
+    describe('rgbToObject', function() {
+        it('returns an object with rgba properties of the given rgb color', function() {
+            expect(cu.rgbToObject('rgb(244, 14, 0)')).toEqual({r: 244, g: 14, b: 0, a: 1});
+            expect(cu.rgbToObject('rgb(17,213,255)')).toEqual({r: 17, g: 213, b: 255, a: 1});
+        });
+        
+        it('returns an object with rgba properties of given rgba color', function() {
+            expect(cu.rgbToObject('rgba(100, 50, 255, 0.17)')).toEqual({r: 100, g: 50, b: 255, a: 0.17});
+        });
+        
+        it('should throw error when argument is not a valid rgb(a) string', function() {
+            expect(function() {
+                cu.rgbToObject('rgba(255. 100. 50%)');
+            }).toThrow(new Error('Not a valid rgb(a) string'));
+        });
+    });
+    
     describe('randomHex', function() {
         it('returns a valid hex color string', function() {
             expect(cu.randomHex()).toMatch(/^#[a-f0-9]{6}$/i);
@@ -32,6 +85,12 @@ describe('COLOR_UTILS helper methods', function() {
         
         it('accepts short hex strings too', function() {
             expect(cu.toRGB('#F92', false)).toEqual({r: 255, g: 153, b: 34});
+        });
+        
+        it('should throw an Error for invalid hex colors', function() {
+            expect(function() {
+                cu.toRGB('#G8922');
+            }).toThrow(new Error('Not a valid hex color'));
         });
     });
     
