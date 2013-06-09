@@ -98,13 +98,13 @@ describe('COLOR_UTILS helper methods', function() {
         });
         
         it('optionally returns objects', function() {
-            expect(cu.toRGB('#000000', false)).toEqual({r: 0, g: 0, b: 0});
-            expect(cu.toRGB('#FFFFFF', false)).toEqual({r: 255, g: 255, b: 255});
-            expect(cu.toRGB('#9f3ff1', false)).toEqual({r: 159, g: 63, b: 241});
+            expect(cu.toRGB('#000000', 'object')).toEqual({r: 0, g: 0, b: 0});
+            expect(cu.toRGB('#FFFFFF', 'object')).toEqual({r: 255, g: 255, b: 255});
+            expect(cu.toRGB('#9f3ff1', 'object')).toEqual({r: 159, g: 63, b: 241});
         });
         
         it('accepts short hex strings too', function() {
-            expect(cu.toRGB('#F92', false)).toEqual({r: 255, g: 153, b: 34});
+            expect(cu.toRGB('#F92', 'object')).toEqual({r: 255, g: 153, b: 34});
         });
         
         it('should throw an Error for invalid hex colors', function() {
@@ -131,8 +131,8 @@ describe('COLOR_UTILS helper methods', function() {
         });
         
         it('optionally returns objects', function() {
-            expect(cu.toHSL(0, 255, 0, false)).toEqual({h: 120, s: 100, l: 50});
-            expect(cu.toHSL(65, 234, 208, false)).toEqual({h: 171, s: 80, l: 59});
+            expect(cu.toHSL(0, 255, 0, 'object')).toEqual({h: 120, s: 100, l: 50});
+            expect(cu.toHSL(65, 234, 208, 'object')).toEqual({h: 171, s: 80, l: 59});
         });
     });
 });
