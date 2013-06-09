@@ -8,7 +8,11 @@ window.COLOR_UTILS = (function() {
         /**
          * Inverts a rgb color
          * 
-         * @returns {string} Inverted rgb color: 'rgb(255, 100, 50)'
+         * @param {number} r Red value 0-255
+         * @param {number} g Green value 0-255
+         * @param {number} b Blue value 0-255
+         * 
+         * @returns {string} Inverted rgb color, e.g. 'rgb(255, 100, 50)'
          */
         invertColor: function(r, g, b) {
             return 'rgb(' + (255 - r) + ', ' + (255 - g) + ', ' + (255 - b) + ')';
@@ -17,7 +21,12 @@ window.COLOR_UTILS = (function() {
         /**
          * Converts a rgb color to grayscale
          * 
-         * @param {string} method Optional grayscale algorithm: 'average', 'lightness' or 'luminosity' (Default)
+         * @param {number} r Red value 0-255
+         * @param {number} g Green value 0-255
+         * @param {number} b Blue value 0-255
+         * @param {string} method Optional Grayscale algorithm: 'average', 'lightness' or 'luminosity' (Default)
+         * 
+         * @returns {string} Grayscale color in string format, e.g. 'rgb(127, 127, 127)'
          */
         toGrayscale: function(r, g, b, method) {
             var grey;
@@ -43,8 +52,14 @@ window.COLOR_UTILS = (function() {
         },
         
         /**
-         * Takes hsl properties and converts them to a valid hsl(a) string
-         * Alpha is optional
+         * Converts hsl properties to a string
+         * 
+         * @param {number} h Hue value 0-360
+         * @param {number} s Saturation value 0-100
+         * @param {number} l Lightness value 0-100
+         * @param {number} a Alpha value 0-1 (Optional)
+         * 
+         * @returns {string} hsla or hsl string when no alpha is provided. e.g. 'hsla(200, 70%, 50%, 0.75)'
          */
         hslToString: function(h, s, l, a) {
             if (typeof a === 'number' && a >= 0 && a <= 1) {
@@ -55,7 +70,11 @@ window.COLOR_UTILS = (function() {
         },
         
         /**
-         * Takes a hsl(a) string and parses it into an object with h, s, l, a properties
+         * Takes a hsl(a) string and parses it into an object
+         * 
+         * @param {string} color hsl or hsla color string, e.g. 'hsl(300, 100%, 50%)'
+         * 
+         * @returns {object} Object with h,s,l,a properties, e.g. {h: 300, s: 100, l: 50, a: 1}
          */
         hslToObject: function(color) {
             var hsl = /^hsl\(\s*([0-9]{1,3})\s*,\s*([0-9]{1,3})\s*%\s*,\s*([0-9]{1,3})\s*%\s*\)$/,
@@ -82,8 +101,14 @@ window.COLOR_UTILS = (function() {
         },
         
         /**
-         * Takes rgba properties and converts them to a valid rgb(a) string
-         * Alpha is optional
+         * Converts rgba properties into a valid rgb(a) string
+         * 
+         * @param {number} r Red value 0-255
+         * @param {number} g Green value 0-255
+         * @param {number} b Blue value 0-255
+         * @param {number} a Alpha value 0-1 (Optional)
+         * 
+         * @returns {string} rgb(a) color string
          */
         rgbToString: function(r, g, b, a) {
             if (typeof a === 'number' && a >= 0 && a <= 1) {
@@ -94,7 +119,11 @@ window.COLOR_UTILS = (function() {
         },
         
         /**
-         * Takes a rgb(a) string and parses it into an object with r, g, b, a properties
+         * Parses a rgb(a) color into an object
+         * 
+         * @param {string} color rgb or rgba string color, e.g. 'rgb(255, 0, 255)' or 'rgba(255, 0, 0, 0.8)'
+         * 
+         * @returns {object} Object with r,g,b,a properties
          */
         rgbToObject: function(color) {
             var rgb = /^rgb\(\s*([0-9]{1,3})\s*,\s*([0-9]{1,3})\s*,\s*([0-9]{1,3})\s*\)$/,
@@ -121,7 +150,9 @@ window.COLOR_UTILS = (function() {
         },
         
         /**
-         * Returns a random hex color
+         * Generates a random hex color
+         * 
+         * @returns {string} Random hex color in valid string format, e.g. '#f8cae3'
          */
         randomHex: function() {
             // Adding zeros to make sure lenth is always 6
@@ -129,16 +160,18 @@ window.COLOR_UTILS = (function() {
         },
         
         /**
-         * Convert a hex color (#aabbcc, #abc) into rgb object
+         * Converts a hex color (#aabbcc, #abc) into rgb object
          *
          * @param {string} color hex color value short or long
-         * @param {boolean} str String output, setting it to false will return an object
+         * @param {string} type Sets return type of the method: 'object' or 'string' (default).
+         * 
          * @returns {object} color parsed into r, g, b properties
          */
-        toRGB: function(color, str) {
+        toRGB: function(color, type) {
+            type = type || 'string';
+            
             var six = /^#([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})$/i,  // Match #aabbcc
                 three = /^#([0-9a-f])([0-9a-f])([0-9a-f])$/i,         // Match #abc
-                useString = typeof str === 'undefined' ? true : str,
                 parsed,
                 match;
             
@@ -158,7 +191,7 @@ window.COLOR_UTILS = (function() {
                 throw new Error('Not a valid hex color');
             }
             
-            if (useString) {
+            if (type === 'string') {
                 return 'rgb(' + parsed.r + ', ' + parsed.g + ', ' + parsed.b + ')';
             } else {
                 return parsed;
@@ -166,35 +199,37 @@ window.COLOR_UTILS = (function() {
         },
         
         /**
-         * Convert a RGB color to a Hex string
+         * Converts a RGB color to a Hex string
          *
          * @param {number} r Red value 0-255
          * @param {number} g Green value 0-255
          * @param {number} b Blue value 0-255
-         * @returns {string} hex color '#aabbcc'
+         * 
+         * @returns {string} hex color, e.g. '#aabbcc'
          */
         toHex: function(r, g, b) {
             return '#' + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
         },
         
         /**
-         * Convert a RGB color into a HSL color
+         * Converts a RGB color into a HSL color
          *
-         * @param {number} red Red value 0-255
-         * @param {number} green Green value 0-255
-         * @param {number} blue Blue value 0-255
-         * @param {boolean} str String output, setting it to false will return an object
-         * @returns {string} HSL color 'hsl(360, 100%, 50%)'
+         * @param {number} r Red value 0-255
+         * @param {number} g Green value 0-255
+         * @param {number} b Blue value 0-255
+         * @param {string} type Sets return type of the method: 'object' or 'string' (default).
+         * 
+         * @returns {string} HSL color, e.g. 'hsl(360, 100%, 50%)'
          */
-        toHSL: function(r, g, b, str) {
+        toHSL: function(r, g, b, type) {
             r = r / 255;
             g = g / 255;
             b = b / 255;
+            type = type || 'string';
             
             var max = Math.max(r, g, b),
                 min = Math.min(r, g, b),
                 delta = max - min,
-                useString = typeof str === 'undefined' ? true : str,
                 hue,
                 sat,
                 light = (max + min) / 2;
@@ -219,7 +254,7 @@ window.COLOR_UTILS = (function() {
                 hue = hue / 6;
             }
             
-            if (useString) {
+            if (type === 'string') {
                 return 'hsl(' + Math.round(hue * 360) + ', ' + Math.round(sat * 100) + '%, ' + Math.round(light * 100) + '%)';
             } else {
                 return {
