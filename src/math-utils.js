@@ -84,31 +84,17 @@ var MATH_UTILS = (function() {
         },
 
         /**
-         * Turns radians into degrees
+         * Converts radians to degrees
          */
         toDegrees: function(radians) {
             return radians * 180 / Math.PI;
         },
         
         /**
-         * Turns degrees into radians
+         * converts degrees to radians
          */
         toRadians: function(degrees) {
             return degrees * Math.PI / 180;
-        },
-        
-        /**
-         * Test if a number is odd
-         */
-        isOdd: function(value) {
-            return (value % 2) === 1;
-        },
-        
-        /**
-         * Test if a number is even
-         */
-        isEven: function(value) {
-            return (value % 2) === 0;
         }
     };
     

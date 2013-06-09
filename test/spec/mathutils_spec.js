@@ -85,28 +85,4 @@ describe('MATH_UTILS object', function() {
             expect(mu.toRadians(180)).toEqual(Math.PI);
         });
     });
-    
-    describe('isOdd method', function() {
-        it('should return true for odd numbers', function() {
-            expect(mu.isOdd(3)).toBeTruthy();
-            expect(mu.isOdd(379)).toBeTruthy();
-        });
-        
-        it('should return false for even numbers', function() {
-            expect(mu.isOdd(8)).toBeFalsy();
-            expect(mu.isOdd(260)).toBeFalsy();
-        });
-    });
-    
-    describe('isEven method', function() {
-        it('should return true for even numbers', function() {
-            expect(mu.isEven(4)).toBeTruthy();
-            expect(mu.isEven(408)).toBeTruthy();
-        });
-        
-        it('should return false for odd numbers', function() {
-            expect(mu.isEven(7)).toBeFalsy();
-            expect(mu.isEven(689)).toBeFalsy();
-        });
-    });
 });
