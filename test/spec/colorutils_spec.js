@@ -86,6 +86,26 @@ describe('COLOR_UTILS helper methods', function() {
         });
     });
     
+    describe('randomRGB', function() {
+        var color;
+        
+        beforeEach(function() {
+            color = cu.randomRGB();
+        });
+        
+        it('returns an object with r,g,b properties', function() {
+            expect(color.r).toBeDefined();
+            expect(color.g).toBeDefined();
+            expect(color.b).toBeDefined();
+        });
+        
+        it('returns object with property values from 0-255', function() {
+            expect(color.r >= 0 && color.r <= 255).toBeTruthy();
+            expect(color.g >= 0 && color.r <= 255).toBeTruthy();
+            expect(color.b >= 0 && color.r <= 255).toBeTruthy();
+        });
+    });
+    
     describe('toRGB', function() {
         it('converts a hex string to an RGB string', function() {
             expect(cu.toRGB('#000000')).toEqual('rgb(0, 0, 0)');
