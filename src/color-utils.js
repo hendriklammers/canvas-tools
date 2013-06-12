@@ -154,6 +154,22 @@ window.COLOR_UTILS = (function() {
         },
         
         /**
+         * Generates a random rgb color
+         *
+         * @returns {object} Object with r,g,b properties
+         */
+        randomRGB: function() {
+            var color = {r: 0, g: 0, b: 0},
+                i;
+            
+            for (i in color) {
+                color[i] = Math.round(Math.random() * 255);
+            }
+            
+            return color;
+        },
+        
+        /**
          * Converts a hex color (#aabbcc, #abc) into rgb object
          *
          * @param {string} color hex color value short or long
