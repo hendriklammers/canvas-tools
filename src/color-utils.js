@@ -4,7 +4,22 @@
 window.COLOR_UTILS = (function() {
     'use strict';
     
+    var outputType = 'auto';
+    
     var utils = {
+        /**
+         * Sets the default outputType for certain methods that return a color
+         *
+         * @param {string} type outputType: 'object', 'string' or 'auto' (default)
+         */
+        setOutputType: function(type) {
+            if (type === 'object' || type === 'string' || type === 'auto') {
+                outputType = type;
+            } else {
+                throw new Error('Not a valid type');
+            }
+        },
+        
         /**
          * Inverts a rgb color
          *
@@ -177,7 +192,7 @@ window.COLOR_UTILS = (function() {
          * @returns {object} color parsed into r, g, b properties
          */
         toRGB: function(color, type) {
-            type = type || 'string';
+            type = outputType === 'auto' ? (type || 'string') : outputType;
             
             var six = /^#([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})$/i,  // Match #aabbcc
                 three = /^#([0-9a-f])([0-9a-f])([0-9a-f])$/i,         // Match #abc
@@ -232,7 +247,7 @@ window.COLOR_UTILS = (function() {
             r = r / 255;
             g = g / 255;
             b = b / 255;
-            type = type || 'string';
+            type = outputType === 'auto' ? (type || 'string') : outputType;
             
             var max = Math.max(r, g, b),
                 min = Math.min(r, g, b),
