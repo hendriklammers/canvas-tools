@@ -1,4 +1,4 @@
-window.INTERACTIVE_UTILS = (function() {
+window.INTERACTIVE = (function() {
     'use strict';
     
     return {

@@ -1,11 +1,36 @@
 describe('COLOR_UTILS helper methods', function() {
     'use strict';
     
-    var cu = window.COLOR_UTILS;
+    var cu = window.COLOR_UTIL;
     
     it('should be available globally', function() {
         expect(cu).toBeDefined();
     });
+    
+    // describe('setOutputType', function() {
+    //         afterEach(function() {
+    //             // Set type back to default
+    //             cu.setOutputType('auto');
+    //         });
+    //         
+    //         it('throws an error when invalid type is passed as argument', function() {
+    //             expect(function() {
+    //                 cu.setOutputType('function');
+    //             }).toThrow();
+    //         });
+    //         
+    //         it('sets the return type to string', function() {
+    //             cu.setOutputType('string');
+    //             expect(typeof cu.toRGB('#430588') === 'string').toBeTruthy();
+    //             expect(typeof cu.toHSL(255, 100, 140, 'object') === 'string').toBeTruthy();
+    //         });
+    //         
+    //         it('sets the return type to object', function() {
+    //             cu.setOutputType('object');
+    //             expect(typeof cu.toRGB('#430588') === 'object').toBeTruthy();
+    //             expect(typeof cu.toHSL(255, 100, 140, 'string') === 'string').toBeFalsy();
+    //         });
+    //     });
     
     describe('invertColor', function() {
         it('takes a rgb color and returns the inverted rgb string', function() {
