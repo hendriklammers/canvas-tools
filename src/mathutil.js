@@ -1,7 +1,7 @@
 /**
  * Various math related helper methods
  */
-window.MATH_UTILS = (function() {
+window.MATH_UTIL = (function() {
     'use strict';
     
     var utils = {

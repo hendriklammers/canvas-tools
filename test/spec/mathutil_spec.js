@@ -2,7 +2,7 @@ describe('MATH_UTILS object', function() {
     'use strict';
     
     // For easy reference
-    var mu = window.MATH_UTILS;
+    var mu = window.MATH_UTIL;
 
     it('should be available globally', function() {
         expect(mu).toBeDefined();

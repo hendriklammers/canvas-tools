@@ -1,7 +1,7 @@
 describe('COLOR_UTILS helper methods', function() {
     'use strict';
     
-    var cu = window.COLOR_UTILS;
+    var cu = window.COLOR_UTIL;
     
     it('should be available globally', function() {
         expect(cu).toBeDefined();

@@ -1,7 +1,7 @@
 /**
  * Various helper methods for working with colors
  */
-window.COLOR_UTILS = (function() {
+window.COLOR_UTIL = (function() {
     'use strict';
     
     var outputType = 'auto';
